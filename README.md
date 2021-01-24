@@ -1,6 +1,14 @@
 (Jenkins Test)
-
 # Eng74 Final Project
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_id') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
 
 # MVC - Model View Controller
 MVC is a software approach used to organise code. The MVC method establishes 3 silos, the Model, View, and the controller.
@@ -23,3 +31,6 @@ Flask is a python-based web development framework. It provides access to a large
 
 admin 
 e25e9690cd6f483baed616cfaacaeb05
+
+
+All you need to do is push a change to the development branch and the Jenkins pipeline will take it from there automating the process end-to-end
